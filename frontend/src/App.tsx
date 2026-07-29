@@ -1,25 +1,29 @@
 import CssBaseline from "@mui/material/CssBaseline"
-import Header from "./layouts/Header.tsx"
-import { RouterProvider } from "react-router/dom"
-import router from "./plugins/Router.ts"
+import Header from "./layouts/Header/index.tsx"
+import Main from "./layouts/Main.tsx"
+import { Box, ThemeProvider } from "@mui/material"
+import { useThemeStore } from "./plugins/ThemeStore.ts"
 
 
 
 export default function App()
 {
+    const theme = useThemeStore((state) => state.theme)
+
     return (
-        <div>
+        <ThemeProvider theme={theme}>
             <CssBaseline />
 
-            <div style={{
-                minHeight: '100vh',
-                display: 'flex',
-                flexDirection: 'column'
-            }}>
+            <Box
+                sx={{
+                    minHeight: "100vh",
+                    position: "relative",
+                }}
+            >
                 <Header />
 
-                <RouterProvider router={router} />
-            </div>
-        </div>
+                <Main />
+            </Box>
+        </ThemeProvider>
     )
 }
